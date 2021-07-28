@@ -85,5 +85,6 @@ polkadot_restart_month='2'
 polkadot_restart_weekday='1'
 
 # Optional: Restore the chain db from a .7z snapshot
-polkadot_db_snapshot_url='https://ksm-rocksdb.polkashots.io/kusama-6658753.RocksDb.7z'
-polkadot_db_snapshot_checksum='sha256:4f61a99e4b00acb335aff52f2383880d53b30617c0ae67ac47c611e7bf6971ff'
+polkadot_db_snapshot_url='https://ksm-rocksdb.polkashots.io/kusama-8540320.RocksDb.7z'
+polkadot_db_snapshot_checksum='sha256:2a247368cc86e8e30139cb9396f81dcc174d9ad90b53e7fd59a01e5c244f7ba4'
+
