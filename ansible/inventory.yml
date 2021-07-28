@@ -2,7 +2,7 @@
 
 # Validator 0
 [validator_0]
-161.35.126.220
+143.244.200.8
 
 # NOTE: optional variables can just be removed.
 [validator_0:vars]
@@ -19,29 +19,29 @@ logging_filter='sync=warn,afg=warn,babe=warn'
 # Setup a nginx reverse proxy in front of the binary (optional). Disabled by default.
 enable_reverse_proxy = false
 # Any additional flags passed on to the 'polkadot' binary (optional)
-additional_flags = '--no-prometheus --no-mdns'
+additional_flags = '--no-prometheus --no-mdns --unsafe-pruning --pruning=1000'
 
 # Validator 1
-[validator_1]
-134.122.12.34
+# [validator_1]
+# 134.122.12.34
 
-[validator_1:vars]
-node_name='pika-01'
-ansible_user=kusama
-telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
-logging_filter='sync=warn,afg=warn,babe=warn'
+# [validator_1:vars]
+# node_name='pika-01'
+# ansible_user=kusama
+# telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
+# logging_filter='sync=warn,afg=warn,babe=warn'
 
 
 # ## Group all nodes
 [validator:children]
 validator_0
-validator_1
+# validator_1
 
 # Common variables
 [all:vars]
 # Project name. Will be used as a prefix for the auto-generated node names
 # if an individual `nodeName` is not specified.
-project=coco-will-be-happy
+project=pika-will-be-happy
 
 # Can be left as is.
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=15'
