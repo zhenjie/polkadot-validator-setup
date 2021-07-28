@@ -7,5 +7,5 @@
 - name: add polkadot user
   user:
     name: polkadot
-    group: polkadot
+    groups: polkadot
     append: yes
