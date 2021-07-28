@@ -8,7 +8,7 @@
 [validator_0:vars]
 ansible_user=kusama
 # Set an individual node name (optional)
-node_name='Coco-00'
+node_name='pika-00'
 # Setup one or multiple telemetry endpoints (optional)
 telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
 # Only log specify levels, e.g. warnings (optional)
@@ -26,7 +26,7 @@ additional_flags = '--no-prometheus --no-mdns'
 134.122.12.34
 
 [validator_1:vars]
-node_name='Coco-01'
+node_name='pika-01'
 ansible_user=kusama
 telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
 logging_filter='sync=warn,afg=warn,babe=warn'
