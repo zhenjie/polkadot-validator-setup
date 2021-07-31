@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/w3f/polkadot-secure-validator.svg?style=svg)](https://circleci.com/gh/w3f/polkadot-secure-validator)
 
+
 # Polkadot Validator Setup
 
 This repo describes a potential setup for a Polkadot or Kusama validator that aims to
