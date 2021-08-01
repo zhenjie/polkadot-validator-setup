@@ -1,23 +1,90 @@
-## This inventory is used mearly for setup the environment before executing the `setup.sh` command.
-## It will create the user kusama in group kusama with proper credential. This should normally need to be
-## executed once.
+# Specify the nodes to setup. You can add more or remove entries, as you wish.
 
 # Validator 0
 [validator_0]
-# digital ocean: debian-s-2vcpu-4gb-intel-nyc3-01
 138.197.48.51
 
-# Specific node specific variables
+# NOTE: optional variables can just be removed.
 [validator_0:vars]
+ansible_user=kusama
+# Set an individual node name (optional)
+node_name='pika-01'
+# Setup one or multiple telemetry endpoints (optional)
+telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
+# Only log specify levels, e.g. warnings (optional)
+logging_filter='sync=warn,afg=warn,babe=warn'
+# Location for database, keys, etc (optional)
+# WARNING: if defined, the path must be writable by user/group 'polkadot'
+# base_path='/mnt/shared/volume'
+# Setup a nginx reverse proxy in front of the binary (optional). Disabled by default.
+enable_reverse_proxy = true
+# Any additional flags passed on to the 'polkadot' binary (optional)
+# additional_flags = '--no-prometheus --no-mdns --unsafe-pruning --pruning=1000'
+additional_flags = '--no-mdns --unsafe-pruning --pruning=1000'
+
+# Validator 1
+# [validator_1]
+# 134.122.12.34
+
+# [validator_1:vars]
+# node_name='pika-01'
+# ansible_user=kusama
+# telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
+# logging_filter='sync=warn,afg=warn,babe=warn'
+
 
 # ## Group all nodes
 [validator:children]
 validator_0
+# validator_1
 
 # Common variables
 [all:vars]
-ansible_user=root
+# Project name. Will be used as a prefix for the auto-generated node names
+# if an individual `nodeName` is not specified.
+project=pika-will-be-happy
 
-hv_username=kusama
-hv_usergroup=kusama
-hv_userpassword=
+# Can be left as is.
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=15'
+build_dir=$HOME/.config/polkadot-secure-validator/build/w3f/ansible
+
+# Specify which `polkadot` binary to install. Checksum is verified during execution.
+polkadot_binary_url='https://github.com/paritytech/polkadot/releases/download/v0.9.8/polkadot'
+polkadot_binary_checksum='sha256:b1905f3a92274627d88c62a0b6275980581a4bb2e7435353900a0e8921075caf'
+
+# Specify the chain/network.
+#
+# For Polkadot:
+# ```
+# chain=polkadot
+# polkadot_network_id=polkadot
+# ```
+#
+# For Kusama:
+# ```
+# chain=kusama
+# polkadot_network_id=ksmcc3
+# ```
+polkadot_network_id=ksmcc3
+chain=kusama
+
+# Nginx authentication settings (for Prometheus).
+nginx_user='prometheus'
+nginx_password='nginx_password'
+
+# Node exporter settings. Disabled by default.
+node_exporter_enabled='true'
+node_exporter_binary_url='https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz'
+node_exporter_binary_checksum='sha256:b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424'
+
+# Polkadot service restart settings. Disabled by default (recommended). Adjust values accordingly.
+polkadot_restart_enabled='false'
+polkadot_restart_minute='0'
+polkadot_restart_hour='0'
+polkadot_restart_day='29'
+polkadot_restart_month='2'
+polkadot_restart_weekday='1'
+
+# Optional: Restore the chain db from a .7z snapshot
+polkadot_db_snapshot_url='https://ksm-rocksdb.polkashots.io/kusama-8590456.RocksDb.7z'
+polkadot_db_snapshot_checksum='sha256:490674fabeca344cf153294780e004a52e28e308238ab821078363d87cc09963'
