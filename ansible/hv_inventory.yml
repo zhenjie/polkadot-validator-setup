@@ -1,0 +1,23 @@
+## This inventory is used mearly for setup the environment before executing the `setup.sh` command.
+## It will create the user kusama in group kusama with proper credential. This should normally need to be
+## executed once.
+
+# Validator 0
+[validator_0]
+# digital ocean: debian-s-2vcpu-4gb-intel-nyc3-01
+138.197.48.51
+
+# Specific node specific variables
+[validator_0:vars]
+
+# ## Group all nodes
+[validator:children]
+validator_0
+
+# Common variables
+[all:vars]
+ansible_user=root
+
+hv_username=kusama
+hv_usergroup=kusama
+hv_userpassword=

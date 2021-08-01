@@ -1,0 +1,19 @@
+##
+# 1. update hv_inventory.yml
+# 2. run: ansible-playbook -i hv_inventory.yml  hv_setup_env.yml
+#    or: ansible-playbook -i hv_inventory.yml  hv_setup_env.yml  --extra-vars="hv_userpassword=<PASSWORD>"
+---
+- name: Wait 60 seconds, but only start checking after 0 seconds
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Wait for nodes to become rechable
+      wait_for_connection:
+        timeout: 60
+
+- name: setup env
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - hv_setup_env

@@ -1,0 +1,37 @@
+# create a new user with sudo privillege
+---
+- name: define hv_username if not set
+  set_fact:
+    hv_username: kusama
+  when: hv_username is not defined
+
+- name: define hv_usergroup if not set
+  set_fact:
+    hv_usergroup: kusama
+  when: hv_usergroup is not defined
+
+- name: create {{ hv_usergroup }} group
+  group:
+    name: hv_usergroup
+    state: present
+
+- name: make sure hv_userpassword is set properly
+  fail:
+    msg: Please set a proper value for hv_userpassword
+  when: hv_userpassword is not defined or hv_userpassword == ""
+
+- name: add {{ hv_username }} user
+  user:
+    name: hv_username
+    shell: /bin/bash
+    groups: hv_usergroup
+    password: "{{ hv_userpassword | password_hash('sha512') }}"
+    append: yes
+
+- name: add {{ hv_username }} to sudo group
+  command: usermod -aG sudo {{ hv_username }}
+
+- name: copy login credentials from root user
+  shell: |-
+    cp -r /root/.ssh /home/{{ hv_username }}
+    chown -R {{ hv_username }}:{{ hv_usergroup }} /home/{{ hv_username }}/.ssh
