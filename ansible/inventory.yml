@@ -17,9 +17,10 @@ logging_filter='sync=warn,afg=warn,babe=warn'
 # WARNING: if defined, the path must be writable by user/group 'polkadot'
 # base_path='/mnt/shared/volume'
 # Setup a nginx reverse proxy in front of the binary (optional). Disabled by default.
-enable_reverse_proxy = false
+enable_reverse_proxy = true
 # Any additional flags passed on to the 'polkadot' binary (optional)
-additional_flags = '--no-prometheus --no-mdns --unsafe-pruning --pruning=1000'
+# additional_flags = '--no-prometheus --no-mdns --unsafe-pruning --pruning=1000'
+additional_flags = '--no-mdns --unsafe-pruning --pruning=1000'
 
 # Validator 1
 # [validator_1]
@@ -72,7 +73,7 @@ nginx_user='prometheus'
 nginx_password='nginx_password'
 
 # Node exporter settings. Disabled by default.
-node_exporter_enabled='false'
+node_exporter_enabled='true'
 node_exporter_binary_url='https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz'
 node_exporter_binary_checksum='sha256:b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424'
 

@@ -44,6 +44,12 @@
     - enable_reverse_proxy|default(false)|bool or enableReverseProxy|default(false)|bool
     - not ufw_status_result.stdout is search(proxy_port ~ "/tcp.*ALLOW IN.*Anywhere")
 
+- name: close proxy port if enable_reverse_proxy is not enabled
+  command: ufw deny {{ proxy_port }}/tcp
+  when:
+    - not enable_reverse_proxy|default(false)|bool and not enableReverseProxy|default(false)|bool
+    - not ufw_status_result.stdout is search(proxy_port ~ "/tcp.*DENY IN.*Anywhere")
+
 - name: enable firewall
   shell: |
     set -o pipefail

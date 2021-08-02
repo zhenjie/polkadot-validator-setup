@@ -28,6 +28,13 @@
   when:
     - enable_reverse_proxy|default(false)|bool or enableReverseProxy|default(false)|bool
 
+- name: remove proxy service file when reverse proxy is not enabled for polkadot
+  file:
+    path: /etc/nginx/streams-enabled/polkadot-proxy.conf
+    state: absent
+  when:
+    - not enable_reverse_proxy|default(false)|bool and not enableReverseProxy|default(false)|bool
+
 - name: restart nginx service
   systemd:
     name: nginx
