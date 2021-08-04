@@ -12,7 +12,7 @@
 
 - name: create {{ hv_usergroup }} group
   group:
-    name: hv_usergroup
+    name: '{{ hv_usergroup }}'
     state: present
 
 - name: make sure hv_userpassword is set properly
@@ -22,9 +22,9 @@
 
 - name: add {{ hv_username }} user
   user:
-    name: hv_username
+    name: '{{ hv_username }}'
     shell: /bin/bash
-    groups: hv_usergroup
+    groups: '{{ hv_usergroup }}'
     password: "{{ hv_userpassword | password_hash('sha512') }}"
     append: yes
 
